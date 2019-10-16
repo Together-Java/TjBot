@@ -1,0 +1,11 @@
+commands:
+  ping:
+    short-description: "Causes some pong messages to test the bot status."
+    long-description: "Pings the bot at different levels and causes a response."
+  help:
+    short-description: "Displays help messages for other commands"
+    long-description: |
+      Shows you the help for a command. Some example usages:
+      * `help doc short` (help for the shorted doc command)
+      * `help ping error` (help for the error ping command)
+    usage: "help <path to command>"

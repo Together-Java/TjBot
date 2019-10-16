@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 import org.togetherjava.discordbot.config.TjBotConfig;
+import org.togetherjava.discordbot.util.Messages;
 
 /**
  * The context for commands.
@@ -15,6 +16,7 @@ import org.togetherjava.discordbot.config.TjBotConfig;
 public class CommandContext extends GlobalContext {
 
   private TjBotConfig config;
+  private Messages messages;
   private JdaRequestContext requestContext;
   private CommandFinder<CommandContext> commandFinder;
 
@@ -23,13 +25,16 @@ public class CommandContext extends GlobalContext {
    *
    * @param requestContext the request context that is specific this this request
    * @param config the config
+   * @param messages the messages class to use
    * @param commandFinder the command finder
    */
   public CommandContext(JdaRequestContext requestContext, TjBotConfig config,
+      Messages messages,
       CommandFinder<CommandContext> commandFinder) {
     super(requestContext);
     this.config = config;
     this.requestContext = requestContext;
+    this.messages = messages;
     this.commandFinder = commandFinder;
   }
 
@@ -59,6 +64,15 @@ public class CommandContext extends GlobalContext {
    */
   public CommandFinder<CommandContext> getCommandFinder() {
     return commandFinder;
+  }
+
+  /**
+   * Returns the {@link Messages}.
+   *
+   * @return the messages
+   */
+  public Messages getMessages() {
+    return messages;
   }
 
   /**

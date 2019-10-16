@@ -13,6 +13,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.togetherjava.discordbot.commands.CommandContext.JdaRequestContext;
 import org.togetherjava.discordbot.config.TjBotConfig;
+import org.togetherjava.discordbot.util.Messages;
 
 /**
  * A command listener for JDA. It is responsible for listening to messages an invoking commands.
@@ -25,15 +26,16 @@ public class CommandListener extends ListenerAdapter {
    * Creates a new command listener.
    *
    * @param config the config to use
+   * @param messages the messages to use
    */
-  public CommandListener(TjBotConfig config) {
+  public CommandListener(TjBotConfig config, Messages messages) {
     // command finder is null only when called from the constructor
     CommandNode<CommandContext> rootCommand = new CommandDiscovery().findCommands(
-        new CommandContext(null, config, null)
+        new CommandContext(null, config, messages, null)
     );
     CommandFinder<CommandContext> commandFinder = new CommandFinder<>(rootCommand);
 
-    this.executor = new JdaExecutor(commandFinder, config);
+    this.executor = new JdaExecutor(messages, commandFinder, config);
   }
 
   @Override

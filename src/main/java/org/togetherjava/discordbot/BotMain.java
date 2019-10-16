@@ -9,6 +9,7 @@ import org.togetherjava.discordbot.cli.CliArgumentSpecification;
 import org.togetherjava.discordbot.cli.CliArgumentSpecification_Parser;
 import org.togetherjava.discordbot.commands.CommandListener;
 import org.togetherjava.discordbot.config.TjBotConfig;
+import org.togetherjava.discordbot.util.Messages;
 
 public class BotMain {
 
@@ -23,10 +24,12 @@ public class BotMain {
     TjBotConfig config = TjBotConfig.loadFromStream(Files.newInputStream(spec.configFile()));
     logger.info("Loaded config");
 
+    Messages messages = new Messages();
+
     logger.info("Starting JDA");
     new JDABuilder(AccountType.BOT)
         .setToken(config.getAndDeleteBotToken())
-        .addEventListeners(new CommandListener(config))
+        .addEventListeners(new CommandListener(config, messages))
         .build()
         .awaitReady();
     logger.info("Started JDA");
