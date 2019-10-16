@@ -1,0 +1,39 @@
+Configuration:
+  # log4j internal events will only be logged when they are of WARN level
+  status: warn
+  name: TogetherJavaBot
+  properties:
+    property:
+      name: filename
+      value: target/tjb.log
+
+  appenders:
+    Console:
+      name: STDOUT
+      PatternLayout:
+        Pattern: "%m%n"
+    File:
+      name: File
+      fileName: ${filename}
+      PatternLayout:
+        Pattern: "%d %p %C{1.} [%t] %m%n"
+      Filters:
+        ThresholdFilter:
+          level: error
+
+  Loggers:
+    # base config for root logger
+    Root:
+      level: info
+      AppenderRef:
+        ref: STDOUT
+    logger:
+      # a logger for our own packages
+      - name: org.togetherjava.discordbot
+        level: debug
+        # do not inherit appenders from parent logger (Root)
+        additivity: false
+        # Where to log to. Appenders are defined above
+        AppenderRef:
+          - ref: STDOUT
+          - ref: File
