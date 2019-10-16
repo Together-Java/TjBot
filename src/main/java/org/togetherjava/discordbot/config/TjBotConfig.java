@@ -7,6 +7,7 @@ import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * The pojo for the main config file for this bot.
@@ -14,10 +15,12 @@ import java.util.List;
 public class TjBotConfig {
 
   private List<String> prefixes;
+  private String botToken;
 
   @JsonCreator
-  public TjBotConfig(List<String> prefixes) {
-    this.prefixes = prefixes;
+  public TjBotConfig(List<String> prefixes, String botToken) {
+    this.prefixes = Objects.requireNonNull(prefixes, "prefixes can not be null!");
+    this.botToken = Objects.requireNonNull(botToken, "botToken can not be null!");
   }
 
   /**
@@ -27,6 +30,17 @@ public class TjBotConfig {
    */
   public List<String> getPrefixes() {
     return prefixes;
+  }
+
+  /**
+   * Returns the token and deletes it from the config.
+   *
+   * @return the bot token
+   */
+  public String getAndDeleteBotToken() {
+    String token = botToken;
+    botToken = null;
+    return token;
   }
 
   /**

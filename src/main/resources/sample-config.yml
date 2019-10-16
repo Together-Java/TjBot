@@ -1,2 +1,4 @@
+# Separator needed for jackson to deserialize it as an object
 ---
 prefixes: ["!", "?"]
+botToken: "your token"

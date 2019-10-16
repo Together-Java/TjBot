@@ -1,0 +1,118 @@
+package org.togetherjava.discordbot.commands;
+
+import de.ialistannen.commandprocrastination.command.tree.CommandFinder;
+import de.ialistannen.commandprocrastination.context.GlobalContext;
+import de.ialistannen.commandprocrastination.context.RequestContext;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.User;
+import org.togetherjava.discordbot.config.TjBotConfig;
+
+/**
+ * The context for commands.
+ */
+public class CommandContext extends GlobalContext {
+
+  private TjBotConfig config;
+  private JdaRequestContext requestContext;
+  private CommandFinder<CommandContext> commandFinder;
+
+  /**
+   * Creates a new command context.
+   *
+   * @param requestContext the request context that is specific this this request
+   * @param config the config
+   * @param commandFinder the command finder
+   */
+  public CommandContext(JdaRequestContext requestContext, TjBotConfig config,
+      CommandFinder<CommandContext> commandFinder) {
+    super(requestContext);
+    this.config = config;
+    this.requestContext = requestContext;
+    this.commandFinder = commandFinder;
+  }
+
+  /**
+   * Returns the config.
+   *
+   * @return the config used by the bot
+   */
+  public TjBotConfig getConfig() {
+    return config;
+  }
+
+  /**
+   * Returns the request context.
+   *
+   * @return the request context
+   */
+  @Override
+  public JdaRequestContext getRequestContext() {
+    return requestContext;
+  }
+
+  /**
+   * Returns the command finder.
+   *
+   * @return the command finder
+   */
+  public CommandFinder<CommandContext> getCommandFinder() {
+    return commandFinder;
+  }
+
+  /**
+   * The context for a single request.
+   */
+  public static class JdaRequestContext extends RequestContext {
+
+    private Message message;
+    private User user;
+    private Guild guild;
+    private MessageChannel channel;
+
+    JdaRequestContext(Message message, User user, Guild guild) {
+      this.message = message;
+      this.user = user;
+      this.guild = guild;
+      this.channel = message.getChannel();
+    }
+
+    /**
+     * Returns the message that triggered the command.
+     *
+     * @return the message that triggered the command
+     */
+    public Message getMessage() {
+      return message;
+    }
+
+    /**
+     * Returns the channel the message was in.
+     *
+     * @return the channel the message was in
+     */
+    public MessageChannel getChannel() {
+      return channel;
+    }
+
+    /**
+     * Returns the user that sent the message.
+     *
+     * @return the user that sent the message
+     */
+    public User getUser() {
+      return user;
+    }
+
+    /**
+     * Returns the guild the message was sent in.
+     *
+     * @return the guild the message was sent in
+     */
+    public Guild getGuild() {
+      return guild;
+    }
+  }
+
+}
