@@ -11,8 +11,9 @@ import de.ialistannen.commandprocrastination.command.tree.CommandNode;
 import de.ialistannen.commandprocrastination.parsing.ParseException;
 import java.util.List;
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.exceptions.HierarchyException;
+import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import org.togetherjava.discordbot.commands.CommandContext;
 import org.togetherjava.discordbot.commands.commands.BasePrefixCommand;
 
@@ -46,29 +47,23 @@ public class BanCommand extends CommandNode<CommandContext> {
     String reason = context.shiftOptionally(greedyPhrase())
         .orElse("");
 
-    // Check our privileges
-    boolean isAllowedToBan = context.getRequestContext()
-        .getGuild()
-        .getSelfMember()
-        .hasPermission(Permission.BAN_MEMBERS);
-
-    if (!isAllowedToBan) {
-      throw new CommandException("I do not have the rights to ban a user :(");
-    }
-
     // Ban and handle success/error
-    context.getRequestContext().getGuild().ban(
-        user, durationInDays, reason
-    ).queue(
-        success ->
-            context.getRequestContext().getChannel().sendMessage(
-                "Banned user " + user.getAsMention() + " for " + durationInDays + " days due to '"
-                    + reason + "'!"
-            ).queue(),
-        error ->
-            context.getRequestContext().getChannel().sendMessage(
-                "Failed to ban user " + user.getAsMention() + " due to " + error.getMessage()
-            ).queue()
-    );
+    try {
+      context.getRequestContext().getGuild().ban(
+          user, durationInDays, reason
+      ).queue(
+          success ->
+              context.getRequestContext().getChannel().sendMessage(
+                  "Banned user " + user.getAsMention() + " for " + durationInDays + " days due to '"
+                      + reason + "'!"
+              ).queue(),
+          error ->
+              context.getRequestContext().getChannel().sendMessage(
+                  "Failed to ban user " + user.getAsMention() + " due to " + error.getMessage()
+              ).queue()
+      );
+    } catch (HierarchyException | InsufficientPermissionException e) {
+      throw new CommandException("I do not have the necessary rights: " + e.getMessage());
+    }
   }
 }
