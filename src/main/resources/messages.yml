@@ -9,3 +9,6 @@ commands:
       * `help doc short` (help for the shorted doc command)
       * `help ping error` (help for the error ping command)
     usage: "help <path to command>"
+  ban:
+    short-description: "Bans a user for the specified duration"
+    usage: "ban <id|mention> <duration in days> [reason]"
