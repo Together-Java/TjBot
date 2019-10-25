@@ -9,6 +9,7 @@ import de.ialistannen.commandprocrastination.command.tree.CommandFinder;
 import de.ialistannen.commandprocrastination.command.tree.CommandNode;
 import de.ialistannen.commandprocrastination.parsing.ParseException;
 import javax.annotation.Nonnull;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.togetherjava.discordbot.commands.CommandContext.JdaRequestContext;
@@ -27,15 +28,16 @@ public class CommandListener extends ListenerAdapter {
    *
    * @param config the config to use
    * @param messages the messages to use
+   * @param jda the jda instance
    */
-  public CommandListener(TjBotConfig config, Messages messages) {
+  public CommandListener(TjBotConfig config, Messages messages, JDA jda) {
     // command finder is null only when called from the constructor
     CommandNode<CommandContext> rootCommand = new CommandDiscovery().findCommands(
-        new CommandContext(null, config, messages, null)
+        new CommandContext(null, config, messages, null, jda)
     );
     CommandFinder<CommandContext> commandFinder = new CommandFinder<>(rootCommand);
 
-    this.executor = new JdaExecutor(messages, commandFinder, config);
+    this.executor = new JdaExecutor(messages, commandFinder, config, jda);
   }
 
   @Override

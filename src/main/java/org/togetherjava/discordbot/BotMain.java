@@ -2,6 +2,7 @@ package org.togetherjava.discordbot;
 
 import java.nio.file.Files;
 import net.dv8tion.jda.api.AccountType;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,11 +28,12 @@ public class BotMain {
     Messages messages = new Messages();
 
     logger.info("Starting JDA");
-    new JDABuilder(AccountType.BOT)
+    JDA jda = new JDABuilder(AccountType.BOT)
         .setToken(config.getAndDeleteBotToken())
-        .addEventListeners(new CommandListener(config, messages))
+        .addEventListeners()
         .build()
         .awaitReady();
+    jda.addEventListener(new CommandListener(config, messages, jda));
     logger.info("Started JDA");
   }
 }
