@@ -1,4 +1,12 @@
 # Separator needed for jackson to deserialize it as an object
 ---
+# The command prefixes
 prefixes: ["!", "?"]
 botToken: "your token"
+
+# Command settings
+commands:
+  # Configuration for the free command
+  free:
+    # The regex used to detect help channels for the free command
+    helpChannelRegex: ".*"

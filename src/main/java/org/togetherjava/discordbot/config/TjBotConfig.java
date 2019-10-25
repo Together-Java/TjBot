@@ -16,11 +16,13 @@ public class TjBotConfig {
 
   private List<String> prefixes;
   private String botToken;
+  private CommandConfig commands;
 
   @JsonCreator
-  public TjBotConfig(List<String> prefixes, String botToken) {
+  public TjBotConfig(List<String> prefixes, String botToken, CommandConfig commands) {
     this.prefixes = Objects.requireNonNull(prefixes, "prefixes can not be null!");
     this.botToken = Objects.requireNonNull(botToken, "botToken can not be null!");
+    this.commands = Objects.requireNonNull(commands, "commands can not be null!");
   }
 
   /**
@@ -30,6 +32,15 @@ public class TjBotConfig {
    */
   public List<String> getPrefixes() {
     return prefixes;
+  }
+
+  /**
+   * Returns the configuration section for commands.
+   *
+   * @return the configuration section for commands
+   */
+  public CommandConfig getCommands() {
+    return commands;
   }
 
   /**
