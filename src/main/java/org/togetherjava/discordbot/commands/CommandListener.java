@@ -55,7 +55,15 @@ public class CommandListener extends ListenerAdapter {
       executor.execute(content, context);
     } catch (CommandNotFoundException | NoSeparatorException ignored) {
     } catch (ParseException | AbnormalCommandResultException | CommandException e) {
-      event.getChannel().sendMessage(e.getMessage()).queue();
+      if (e.getCause() != null && e.getCause().getMessage() != null) {
+        event.getChannel()
+            .sendMessage(
+                e.getMessage() + " [The error also whispered ' " + e.getCause().getMessage() + " ']"
+            )
+            .queue();
+      } else {
+        event.getChannel().sendMessage(e.getMessage()).queue();
+      }
     }
   }
 }
