@@ -8,7 +8,7 @@ The intention of this bot is to make moderation easier and provide usefull comma
 2. Start the bot with following arguments: `-c path/to/your/config` 
 
 ## Contributing
-Before you contribute to this Repository consider taking a look at the [CONTRIBUTING.md](https://github.com/Together-Java/TjBot/blob/master/pom.xml).
+Before you contribute to this Repository consider taking a look at the [CONTRIBUTING.md](https://github.com/Together-Java/TjBot/blob/master/CONTRIBUTING.md).
 
 ## Notice
 Please keep your private bot token secret. **Do not include your bot token in any committed or pushed file.**
