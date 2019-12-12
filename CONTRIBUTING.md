@@ -56,5 +56,17 @@ Again those points are not required but help future contributors to easier track
    ```
 5. For more information on adding commands, refer to the documentation for Brigardier or ask :)
 
+## Structuring a Pull Request
+
+### Code
+Please only submit one Feature per PR. 
+It makes it easier to review and log which improvemant came from where.
+Do create a branch per feature so that you do not accidentally create a PR for multiple features.
+
+### Description
+Within the Description of the PR please include the feature you implemented.
+Best practice would be to link the corresponding issue.
+This makes it easier for someone reviewing your code to understand your intent and properly check if you implemented it according to the initial requirements.
+
 ## Notes
 Improvements to the Markdown files in this repo are also always welcome.
