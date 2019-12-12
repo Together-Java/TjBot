@@ -13,8 +13,11 @@ Those points just help better describing your feature, meaning it is better to d
 
 ### Examples
 [Issue #1](https://github.com/Together-Java/TjBot/issues/1)
+
 [Issue #2](https://github.com/Together-Java/TjBot/issues/2)
+
 [Issue #3](https://github.com/Together-Java/TjBot/issues/3)
+
 
 ## Found a bug?
 If you found a bug please create an issue.
