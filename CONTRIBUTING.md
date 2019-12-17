@@ -66,6 +66,12 @@ Again those points are not required but help future contributors to easier track
    ```
 5. For more information on adding commands, refer to the documentation for Brigardier or ask :)
 
+## Committing changes
+If your commit is related to an Issue please link it accordingly within the message (see [this](https://help.github.com/en/github/writing-on-github/autolinked-references-and-urls) page, essentially a `#` followed by the issuenumber)
+
+Try to commit only few changes at a time.
+
+
 ## Structuring a Pull Request
 
 ### Code
