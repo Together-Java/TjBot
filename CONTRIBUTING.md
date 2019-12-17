@@ -11,6 +11,8 @@ In your issue please try to include:
 Even if you cannot provide all points still create an issue.
 Those points just help better describing your feature, meaning it is better to discuss for other contributors.
 
+Best practice is to describe the feature in something like [User Stories](https://en.wikipedia.org/wiki/User_story)
+
 ### Examples
 [Issue #1](https://github.com/Together-Java/TjBot/issues/1)
 
