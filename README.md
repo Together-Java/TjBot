@@ -1,7 +1,7 @@
 # Together Java Moderation Bot
 
 ## About
-The intention of this bot is to make moderation easier and provide usefull commands to manage the server.
+The intention of this bot is to make moderation easier and provide useful commands to manage the server.
 
 ## Running the bot
 1. Copy `src/main/resources/sample-config.yml` and use it to structure your bot config.
