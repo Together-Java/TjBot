@@ -17,12 +17,14 @@ public class TjBotConfig {
   private List<String> prefixes;
   private String botToken;
   private CommandConfig commands;
+  private String moderationChannel;
 
   @JsonCreator
-  public TjBotConfig(List<String> prefixes, String botToken, CommandConfig commands) {
+  public TjBotConfig(List<String> prefixes, String botToken, String moderationChannel, CommandConfig commands) {
     this.prefixes = Objects.requireNonNull(prefixes, "prefixes can not be null!");
     this.botToken = Objects.requireNonNull(botToken, "botToken can not be null!");
     this.commands = Objects.requireNonNull(commands, "commands can not be null!");
+    this.moderationChannel = Objects.requireNonNull(moderationChannel, "channel can not be null!");
   }
 
   /**
@@ -42,6 +44,13 @@ public class TjBotConfig {
   public CommandConfig getCommands() {
     return commands;
   }
+
+  /**
+   * Returns the moderation channel for modmail.
+   *
+   * @return the moderation channel for modmail.
+   */
+  public String getModerationChannel() { return moderationChannel; }
 
   /**
    * Returns the token and deletes it from the config.

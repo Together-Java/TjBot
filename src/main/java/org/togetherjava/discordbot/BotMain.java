@@ -10,6 +10,7 @@ import org.togetherjava.discordbot.cli.CliArgumentSpecification;
 import org.togetherjava.discordbot.cli.CliArgumentSpecification_Parser;
 import org.togetherjava.discordbot.commands.CommandListener;
 import org.togetherjava.discordbot.config.TjBotConfig;
+import org.togetherjava.discordbot.events.modmail.ModMailListener;
 import org.togetherjava.discordbot.util.Messages;
 
 public class BotMain {
@@ -30,10 +31,11 @@ public class BotMain {
     logger.info("Starting JDA");
     JDA jda = new JDABuilder(AccountType.BOT)
         .setToken(config.getAndDeleteBotToken())
-        .addEventListeners()
         .build()
         .awaitReady();
+    jda.addEventListener(new ModMailListener(jda, config));
     jda.addEventListener(new CommandListener(config, messages, jda));
+
     logger.info("Started JDA");
   }
 }

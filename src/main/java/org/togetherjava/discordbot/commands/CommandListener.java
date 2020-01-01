@@ -10,6 +10,7 @@ import de.ialistannen.commandprocrastination.command.tree.CommandNode;
 import de.ialistannen.commandprocrastination.parsing.ParseException;
 import javax.annotation.Nonnull;
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.togetherjava.discordbot.commands.CommandContext.JdaRequestContext;
@@ -42,9 +43,10 @@ public class CommandListener extends ListenerAdapter {
 
   @Override
   public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
-    if (event.getAuthor().isBot()) {
+    if (event.getAuthor().isBot() || event.isFromType(ChannelType.PRIVATE)) {
       return;
     }
+
     String content = event.getMessage().getContentRaw();
     try {
       JdaRequestContext context = new JdaRequestContext(
