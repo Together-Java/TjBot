@@ -22,7 +22,6 @@ public class ModMailListener extends ListenerAdapter {
             throw new IllegalArgumentException("Moderation channel is invalid, does not exist");
         }
         moderation = channels.get(0);
-
     }
 
     @Override
@@ -35,11 +34,14 @@ public class ModMailListener extends ListenerAdapter {
 
     @Override
     public void onGuildMessageReceived(@NonNull GuildMessageReceivedEvent event) {
+        if(!event.getMessage().getTextChannel().equals(moderation)){
+            return;
+        }
+
         List<Member> mentioned = event.getMessage().getMentionedMembers();
         if (!event.getAuthor().isBot() && !mentioned.isEmpty()) {
             mentioned.get(0).getUser().openPrivateChannel().queue((channel) ->
                     channel.sendMessage(event.getMessage()).queue());
         }
     }
-
 }
