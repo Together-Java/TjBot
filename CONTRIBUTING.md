@@ -6,6 +6,13 @@ Add any necessary missing configurations.
 
 Run the bot with the argument `-c path/to/your/configuration.yml`.
 
+## Troubleshooting
+### CliArgumentSpecification_Parser import is missing
+See [Issue #7](https://github.com/Together-Java/TjBot/issues/7) for further reference.
+
+### Further help
+Please see the section `Found a bug?` for any further problems that are not listed here.
+
 # Contributing guidelines
 ## Got an idea for a helpful feature?
 If you have an idea for a new feature please feel free to create a new issue.
