@@ -1,3 +1,11 @@
+# Running the Bot
+## Basic setup
+Copy the file `sample-config.yml` from the main resources directory into the root directory of the bot.
+Insert your bot Token. (**Make sure to not accidentally push this file to Git in order to keep your Bot-Token secret!**)
+Add any necessary missing configurations.
+
+Run the bot with the argument `-c path/to/your/configuration.yml`.
+
 # Contributing guidelines
 ## Got an idea for a helpful feature?
 If you have an idea for a new feature please feel free to create a new issue.
