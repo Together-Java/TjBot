@@ -4,9 +4,13 @@
 prefixes: ["!", "?"]
 botToken: "your token"
 
+# channel for modmail
+moderationChannel: "your channel"
+
 # Command settings
 commands:
   # Configuration for the free command
   free:
     # The regex used to detect help channels for the free command
     helpChannelRegex: ".*"
+
