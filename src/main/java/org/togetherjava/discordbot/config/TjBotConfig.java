@@ -1,13 +1,12 @@
 package org.togetherjava.discordbot.config;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * The pojo for the main config file for this bot.
@@ -15,16 +14,20 @@ import java.util.Objects;
 public class TjBotConfig {
 
   private List<String> prefixes;
+  @JsonProperty("botToken")
   private String botToken;
   private CommandConfig commands;
   private String moderationChannel;
+  private String dburl;
 
-  @JsonCreator
-  public TjBotConfig(List<String> prefixes, String botToken, String moderationChannel, CommandConfig commands) {
-    this.prefixes = Objects.requireNonNull(prefixes, "prefixes can not be null!");
-    this.botToken = Objects.requireNonNull(botToken, "botToken can not be null!");
-    this.commands = Objects.requireNonNull(commands, "commands can not be null!");
-    this.moderationChannel = Objects.requireNonNull(moderationChannel, "channel can not be null!");
+
+  /**
+   * Returns the database url
+   *
+   * @return the database url
+   */
+  public String getDburl() {
+    return dburl;
   }
 
   /**
