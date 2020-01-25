@@ -81,6 +81,24 @@ Again those points are not required but help future contributors to easier track
    ```
 5. For more information on adding commands, refer to the documentation for Brigardier or ask :)
 
+### Database Access
+1. Create a schema in resources/db, be sure to start it with a correct version number i.e. V1__example
+   ```sqlite
+   CREATE TABLE IF NOT EXISTS EXAMPLE
+   (
+      ID INTEGER AUTO_INCREMENT PRIMARY KEY,
+      MEMBER varchar(30) NOT NULL,
+      TEXT varchar(30) NOT NULL
+   );
+   ```
+2. Make a new class in org.togetherjava.db.repositories that extends JooqRepository.
+3. Create a Constructor that accepts CommandContext as a parameter.
+4. You can then either create a DAO instance using Jooqs generated DAO class that is generated from your schema using
+   the DSLContext for configuration provided in the JooqRepository class. Or you can directly use the DSLContext to create SQL queries
+   ```java
+    ExampleDao dao = new ExampleDao(dslContext.configuration());
+   ```
+
 ## Committing changes
 If your commit is related to an Issue please link it accordingly within the message (see [this](https://help.github.com/en/github/writing-on-github/autolinked-references-and-urls) page, essentially a `#` followed by the issuenumber)
 
