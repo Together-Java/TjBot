@@ -3,6 +3,8 @@
 # The command prefixes
 prefixes: ["!", "?"]
 botToken: "your token"
+# the url for the database connection
+dburl: "jdbc:sqlite:tjbot.sqlite"
 
 # channel for modmail
 moderationChannel: "your channel"
