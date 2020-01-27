@@ -13,6 +13,10 @@ import net.dv8tion.jda.api.entities.User;
  */
 public class UserParsers {
 
+  private UserParsers() {
+    throw new IllegalStateException("Utility class");
+  }
+
   /**
    * Parses a user by their id.
    *

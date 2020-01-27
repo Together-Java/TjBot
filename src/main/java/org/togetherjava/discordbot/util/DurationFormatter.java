@@ -56,7 +56,7 @@ public class DurationFormatter {
    * @return the joined parts
    */
   private String joinParts(List<String> parts) {
-    if (parts.size() < 1) {
+    if (parts.isEmpty()) {
       return "";
     } else if (parts.size() == 1) {
       return parts.get(0);
