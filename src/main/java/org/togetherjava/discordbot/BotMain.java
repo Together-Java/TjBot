@@ -1,5 +1,6 @@
 package org.togetherjava.discordbot;
 
+import java.lang.invoke.MethodHandles;
 import java.nio.file.Files;
 import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDA;
@@ -14,26 +15,26 @@ import org.togetherjava.discordbot.util.Messages;
 
 public class BotMain {
 
-  private static final Logger logger = LoggerFactory.getLogger(BotMain.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   public static void main(String[] args) throws Exception {
-    logger.info("Starting up");
+    LOG.info("Starting up");
 
     CliArgumentSpecification spec = CliArgumentSpecification_Parser.create().parseOrExit(args);
 
-    logger.info("Loading config from {}", spec.configFile().toAbsolutePath());
+    LOG.info("Loading config from {}", spec.configFile().toAbsolutePath());
     TjBotConfig config = TjBotConfig.loadFromStream(Files.newInputStream(spec.configFile()));
-    logger.info("Loaded config");
+    LOG.info("Loaded config");
 
     Messages messages = new Messages();
 
-    logger.info("Starting JDA");
+    LOG.info("Starting JDA");
     JDA jda = new JDABuilder(AccountType.BOT)
         .setToken(config.getAndDeleteBotToken())
         .addEventListeners()
         .build()
         .awaitReady();
     jda.addEventListener(new CommandListener(config, messages, jda));
-    logger.info("Started JDA");
+    LOG.info("Started JDA");
   }
 }

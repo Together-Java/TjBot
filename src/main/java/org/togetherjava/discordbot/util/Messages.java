@@ -3,8 +3,12 @@ package org.togetherjava.discordbot.util;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.invoke.MethodHandles;
 import java.util.Map;
 import java.util.Optional;
 
@@ -12,7 +16,7 @@ import java.util.Optional;
  * A collection of messages, read from a file and maybe translated.
  */
 public class Messages {
-
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private Map<String, Object> map;
 
   /**
@@ -21,10 +25,10 @@ public class Messages {
   public Messages() {
     try (InputStream inputStream = getClass().getResourceAsStream("/messages.yml")) {
       map = new ObjectMapper(new YAMLFactory())
-          .readValue(inputStream, new TypeReference<Map<String, Object>>() {
+          .readValue(inputStream, new TypeReference<>() {
           });
     } catch (IOException e) {
-      e.printStackTrace();
+      LOG.error("An error occurred while reading messages ",e);
     }
   }
 

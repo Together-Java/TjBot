@@ -12,15 +12,19 @@ import javax.annotation.Nonnull;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.togetherjava.discordbot.commands.CommandContext.JdaRequestContext;
 import org.togetherjava.discordbot.config.TjBotConfig;
 import org.togetherjava.discordbot.util.Messages;
+
+import java.lang.invoke.MethodHandles;
 
 /**
  * A command listener for JDA. It is responsible for listening to messages an invoking commands.
  */
 public class CommandListener extends ListenerAdapter {
-
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private JdaExecutor executor;
 
   /**
@@ -54,6 +58,7 @@ public class CommandListener extends ListenerAdapter {
       );
       executor.execute(content, context);
     } catch (CommandNotFoundException | NoSeparatorException ignored) {
+      LOG.trace("Command not foundor no separator in message {}", content);
     } catch (ParseException | AbnormalCommandResultException | CommandException e) {
       if (e.getCause() != null && e.getCause().getMessage() != null) {
         event.getChannel()
