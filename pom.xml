@@ -63,7 +63,7 @@
     <dependency>
       <groupId>com.github.I-Al-Istannen.CommandProcrastinationParent</groupId>
       <artifactId>CommandProcrastination</artifactId>
-      <version>-SNAPSHOT</version>
+      <version>c60e34ebfe</version>
     </dependency>
 
     <dependency>

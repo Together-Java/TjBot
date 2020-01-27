@@ -1,6 +1,7 @@
 package org.togetherjava.discordbot.commands;
 
 import de.ialistannen.commandprocrastination.autodiscovery.CommandDiscovery;
+import de.ialistannen.commandprocrastination.autodiscovery.InitialContextInstantiator;
 import de.ialistannen.commandprocrastination.command.execution.AbnormalCommandResultException;
 import de.ialistannen.commandprocrastination.command.execution.CommandException;
 import de.ialistannen.commandprocrastination.command.execution.CommandNotFoundException;
@@ -34,7 +35,7 @@ public class CommandListener extends ListenerAdapter {
   public CommandListener(TjBotConfig config, Messages messages, JDA jda) {
     // command finder is null only when called from the constructor
     CommandNode<CommandContext> rootCommand = new CommandDiscovery().findCommands(
-        new CommandContext(null, config, messages, null, jda)
+        new InitialContextInstantiator<>(new CommandContext(null, config, messages, null, jda))
     );
     CommandFinder<CommandContext> commandFinder = new CommandFinder<>(rootCommand);
 
