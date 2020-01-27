@@ -52,7 +52,7 @@
     <dependency>
       <groupId>com.github.I-Al-Istannen.CommandProcrastinationParent</groupId>
       <artifactId>CommandProcrastination</artifactId>
-      <version>-SNAPSHOT</version>
+      <version>209b9a7143</version>
     </dependency>
 
     <dependency>
