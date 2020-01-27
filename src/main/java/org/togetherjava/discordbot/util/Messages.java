@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.invoke.MethodHandles;
 import java.util.Map;
 import java.util.Optional;
 
@@ -15,7 +16,7 @@ import java.util.Optional;
  * A collection of messages, read from a file and maybe translated.
  */
 public class Messages {
-  private static final Logger logger = LoggerFactory.getLogger(Messages.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private Map<String, Object> map;
 
   /**
@@ -27,7 +28,7 @@ public class Messages {
           .readValue(inputStream, new TypeReference<>() {
           });
     } catch (IOException e) {
-      logger.error("An error occurred while reading messages ",e);
+      LOG.error("An error occurred while reading messages ",e);
     }
   }
 
