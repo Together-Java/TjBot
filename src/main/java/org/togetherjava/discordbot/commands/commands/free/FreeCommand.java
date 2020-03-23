@@ -7,11 +7,14 @@ import java.util.List;
 import java.util.StringJoiner;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import javax.inject.Inject;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import org.togetherjava.discordbot.commands.CommandContext;
 import org.togetherjava.discordbot.commands.commands.BasePrefixCommand;
+import org.togetherjava.discordbot.config.TjBotConfig;
 import org.togetherjava.discordbot.events.free.LastMessageInChannelListener;
 import org.togetherjava.discordbot.events.free.LastMessageInChannelListener.LastSentMessage;
 import org.togetherjava.discordbot.util.DurationFormatter;
@@ -19,16 +22,19 @@ import org.togetherjava.discordbot.util.DurationFormatter;
 @ActiveCommand(name = "free", parentClass = BasePrefixCommand.class)
 public class FreeCommand extends CommandNode<CommandContext> {
 
-  private LastMessageInChannelListener lastMessageInChannelListener;
-  private DurationFormatter durationFormatter;
+  private final TjBotConfig config;
+  private final LastMessageInChannelListener lastMessageInChannelListener;
+  private final DurationFormatter durationFormatter;
 
-  public FreeCommand(CommandContext context) {
+  @Inject
+  public FreeCommand(JDA jda, TjBotConfig config) {
     super("free");
 
-    this.lastMessageInChannelListener = new LastMessageInChannelListener(context.getJda());
+    this.lastMessageInChannelListener = new LastMessageInChannelListener(jda);
+    this.config = config;
     this.durationFormatter = new DurationFormatter();
 
-    context.getJda().addEventListener(lastMessageInChannelListener);
+    jda.addEventListener(lastMessageInChannelListener);
 
     setCommand(this::execute);
   }
@@ -37,7 +43,7 @@ public class FreeCommand extends CommandNode<CommandContext> {
     List<LastSentMessage> messages = lastMessageInChannelListener.getLastMessages().stream()
         // Only retrieve channels in the same guild as the command was triggered in
         .filter(it -> it.getMessage().getGuild().equals(context.getRequestContext().getGuild()))
-        .filter(it -> isInHelpChannel(context, it))
+        .filter(this::isInHelpChannel)
         .sorted(Comparator.comparing(LastSentMessage::getDurationToNow))
         .collect(Collectors.toList());
 
@@ -67,8 +73,8 @@ public class FreeCommand extends CommandNode<CommandContext> {
     }
   }
 
-  private boolean isInHelpChannel(CommandContext context, LastSentMessage it) {
-    Pattern helpChannelRegex = context.getConfig().getCommands().getFree().getHelpChannelRegex();
+  private boolean isInHelpChannel(LastSentMessage it) {
+    Pattern helpChannelRegex = config.getCommands().getFree().getHelpChannelRegex();
     String channel = it.getMessage().getChannel().getName();
     return helpChannelRegex.matcher(channel).matches();
   }

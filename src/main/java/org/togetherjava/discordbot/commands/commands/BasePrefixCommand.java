@@ -9,6 +9,7 @@ import de.ialistannen.commandprocrastination.command.tree.data.DefaultDataKey;
 import de.ialistannen.commandprocrastination.parsing.SuccessParser;
 import de.ialistannen.commandprocrastination.parsing.defaults.OptionParser;
 import java.util.List;
+import javax.inject.Inject;
 import org.togetherjava.discordbot.commands.CommandContext;
 import org.togetherjava.discordbot.config.TjBotConfig;
 
@@ -21,10 +22,11 @@ public class BasePrefixCommand extends CommandNode<CommandContext> {
   /**
    * Creates a new command that just enforces a base prefix.
    *
-   * @param context the context
+   * @param config the config
    */
-  public BasePrefixCommand(CommandContext context) {
-    super(Command.nop(), getParserForPrefix(context.getConfig()));
+  @Inject
+  public BasePrefixCommand(TjBotConfig config) {
+    super(Command.nop(), getParserForPrefix(config));
 
     // needed because a space after a prefix is annoying
     setData(DefaultDataKey.NO_ARGUMENT_SEPARATOR, true);

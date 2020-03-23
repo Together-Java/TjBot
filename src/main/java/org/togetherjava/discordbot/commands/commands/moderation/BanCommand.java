@@ -10,6 +10,7 @@ import de.ialistannen.commandprocrastination.command.execution.CommandException;
 import de.ialistannen.commandprocrastination.command.tree.CommandNode;
 import de.ialistannen.commandprocrastination.parsing.ParseException;
 import java.util.List;
+import javax.inject.Inject;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.exceptions.HierarchyException;
@@ -23,6 +24,7 @@ import org.togetherjava.discordbot.commands.commands.BasePrefixCommand;
 @ActiveCommand(name = "ban", parentClass = BasePrefixCommand.class)
 public class BanCommand extends CommandNode<CommandContext> {
 
+  @Inject
   public BanCommand() {
     // The keyword for this command
     super("ban");

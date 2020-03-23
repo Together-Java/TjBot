@@ -16,6 +16,7 @@
 
   <properties>
     <jbock.version>2.8.0</jbock.version>
+    <guice.version>4.2.2</guice.version>
   </properties>
 
   <build>
@@ -52,7 +53,13 @@
     <dependency>
       <groupId>com.github.I-Al-Istannen.CommandProcrastinationParent</groupId>
       <artifactId>CommandProcrastination</artifactId>
-      <version>209b9a7143</version>
+      <version>c60e34ebfe</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.inject</groupId>
+      <artifactId>guice</artifactId>
+      <version>${guice.version}</version>
     </dependency>
 
     <dependency>

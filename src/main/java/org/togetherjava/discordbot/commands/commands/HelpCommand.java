@@ -3,15 +3,18 @@ package org.togetherjava.discordbot.commands.commands;
 import static de.ialistannen.commandprocrastination.parsing.defaults.StringParsers.greedyPhrase;
 
 import de.ialistannen.commandprocrastination.autodiscovery.ActiveCommand;
+import de.ialistannen.commandprocrastination.command.tree.CommandFinder;
 import de.ialistannen.commandprocrastination.command.tree.CommandFinder.FindResult;
 import de.ialistannen.commandprocrastination.command.tree.CommandNode;
 import de.ialistannen.commandprocrastination.command.tree.data.DefaultDataKey;
 import de.ialistannen.commandprocrastination.parsing.ParseException;
 import de.ialistannen.commandprocrastination.util.StringReader;
 import java.util.Optional;
+import javax.inject.Inject;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
 import org.togetherjava.discordbot.commands.CommandContext;
+import org.togetherjava.discordbot.util.Messages;
 
 /**
  * A basic help command.
@@ -19,15 +22,21 @@ import org.togetherjava.discordbot.commands.CommandContext;
 @ActiveCommand(name = "help", parentClass = BasePrefixCommand.class)
 public class HelpCommand extends CommandNode<CommandContext> {
 
-  public HelpCommand() {
+  private final CommandFinder<CommandContext> commandFinder;
+  private final Messages messages;
+
+  @Inject
+  public HelpCommand(CommandFinder<CommandContext> finder, Messages messages) {
     super("help");
+    this.commandFinder = finder;
+    this.messages = messages;
     setCommand(this::execute);
   }
 
   private void execute(CommandContext context) throws ParseException {
     String path = context.shift(greedyPhrase());
 
-    FindResult<CommandContext> foundCommands = context.getCommandFinder()
+    FindResult<CommandContext> foundCommands = commandFinder
         // Remove the need to specify the prefix
         .find(getParent().orElseThrow(), new StringReader(path));
 
@@ -79,6 +88,6 @@ public class HelpCommand extends CommandNode<CommandContext> {
     String identifier = node.<String>getOptionalData(DefaultDataKey.IDENTIFIER).orElseThrow();
     String lookupPath = "commands." + identifier + "." + restPath;
 
-    return commandContext.getMessages().trOptional(lookupPath);
+    return messages.trOptional(lookupPath);
   }
 }
