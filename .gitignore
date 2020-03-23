@@ -3,6 +3,9 @@ target/
 out/
 *.iml
 
+# Docker files
+.docker
+
 # Created by https://www.gitignore.io/api/eclipse,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=eclipse,visualstudiocode
 
