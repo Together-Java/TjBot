@@ -15,3 +15,5 @@ commands:
   free:
     short-description: "Shows the time since the last message in help channels."
     usage: "free"
+  on-mention:
+    response: "I'm available! Please use '>help' to get a list of commands."
