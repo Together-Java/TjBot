@@ -1,3 +1,9 @@
+### Project specific ###
+# gitignore local-config in project root so devs do not checkin their discord tokens
+/local-config.yml
+
+
+### Build and IntelliJ ###
 target/
 .idea/
 out/
