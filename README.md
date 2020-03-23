@@ -12,7 +12,9 @@ Before you contribute to this Repository consider taking a look at the [CONTRIBU
 
 ## Running the bot in docker
 ### On Linux
-1. Run `make build-docker USER_ID=<your wanted user id>` to build the image
+1. Run `make build-docker USER_ID=<your wanted user id>` to build the image.
+   The user id is needed, as the container does not run as root and needs to read the
+   config file you mount in.
 2. Run the docker image. The `WORKDIR` of the image is `/home/tjbot/`.
    ```sh
    sudo docker run                          \ # Run it
