@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.annotation.Nonnull;
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -25,7 +26,11 @@ public class LastMessageInChannelListener extends ListenerAdapter {
     // Prime cache
     jda.getGuilds()
         .stream()
-        .flatMap(guild -> guild.getTextChannels().stream())
+        // Only return channels we are allowed to monitor (exclude moderator channels and so on)
+        .flatMap(guild -> guild.getTextChannels()
+            .stream()
+            .filter(chan -> guild.getSelfMember().hasPermission(chan, Permission.MESSAGE_HISTORY))
+        )
         .forEach(it -> it.getIterableHistory().limit(1).queue(messages -> {
           if (!messages.isEmpty()) {
             Message message = messages.get(0);
